@@ -48,6 +48,10 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 server.listen(80);
+
+var messageCenter = require('./handlers/messageCenter');
+var mCenter = new messageCenter();
+mCenter.initConnection(io);
 //socket.io end
 
 //create mongodb conncetion
@@ -60,22 +64,5 @@ db.once('open', function (callback){
   console.log('mongodb connection success');
 });
 //mongodb end
-
-//create my message handler
-var reghandler = require('./handlers/reg')
-var loginhandler = require('./handlers/login');
-//handler end
-
-io.on('connection', function (socket) {
-  socket.emit('welcome', 'welcome to lightkill -- connect to server success');
-  socket.on('my other event', function (data, fn) {
-    //fn('callback');
-    console.log(data);
-  });
-  socket.on('reg', function(data, fn){
-    console.log({cmdid: 'reg', cmdbody: data});
-    reghandler.reg(data);
-  });
-});
 
 module.exports = app;
