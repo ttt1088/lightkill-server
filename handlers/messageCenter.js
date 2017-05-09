@@ -17,7 +17,11 @@ module.exports = function() {
             });
             socket.on('reg', function(data, fn){
                 console.log({cmdid: 'reg', cmdbody: data});
-                reghandler.reg(data);
+                reghandler.reg(data, fn);
+            });
+            socket.on('login', function(data, fn){
+                console.log({cmdid: 'login', cmdbody: data});
+                loginhandler.login(data);
             });
         });
     };
