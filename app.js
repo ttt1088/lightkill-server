@@ -47,7 +47,7 @@ app.use(function(err, req, res, next) {
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-server.listen(80);
+server.listen(8081);
 
 var messageCenter = require('./handlers/messageCenter');
 var mCenter = new messageCenter();
@@ -56,6 +56,7 @@ mCenter.initConnection(io);
 
 //create mongodb conncetion
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/lightkill');
 
 var db = mongoose.connection;
