@@ -6,8 +6,12 @@ exports.reg = function (data, result){
         result({errno: 3});
         return;
     }
+    if(data.name.length < 2 || data.password.length < 6){
+        result({errno: 3});
+        return;
+    }
 
-    var newuser = new user({name: data.name.toString(), password: data.password.toString()});
+    var newuser = new user({name: data.name, password: data.password});
     user.findOne({name: newuser.name}, function(err, _finduser){
         if(err){
             result({errno: 1});
