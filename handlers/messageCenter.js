@@ -2,6 +2,7 @@ var app = require('../app');
 
 var reghandler = require('./reg')
 var loginhandler = require('./login');
+var logouthandler = require('./logout');
 
 var io = undefined;
 
@@ -20,6 +21,10 @@ module.exports = function() {
             socket.on('login', function(data, fn){
                 console.log({socketid: this.id, cmdid: 'login', cmdbody: data});
                 loginhandler.login(data, fn);
+            });
+            socket.on('logout', function(data, fn){
+                console.log({socketid: this.id, cmdid: 'logout', cmdbody: data});
+                logouthandler.logout(data, fn);
             });
         });
     };
